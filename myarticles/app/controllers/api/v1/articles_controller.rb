@@ -28,6 +28,18 @@ module Api
         end
       end
 
+      # update an article
+      def update
+        article = Article.find(params[:id])
+        if article.update_attributes(article_params)
+          render json: {status: 'SUCCESS', message: 'Article updated',
+            data: article}, status: :ok
+        else
+          render json: {status: 'ERROR', message: 'Article not updated',
+            data: article.error}, status: :unprocessable_entity
+        end
+      end
+
       # delete an article
       def destroy
         article = Article.find(params[:id])
